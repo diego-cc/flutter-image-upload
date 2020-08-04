@@ -54,7 +54,7 @@ class _ImagePresenterState extends State<ImagePresenter> {
 
   Future getImage() async {
     /// Try changing the source property to ImageSource.camera
-    final pickedImg = await picker.getImage(source: ImageSource.gallery);
+    final pickedImg = await picker.getImage(source: ImageSource.camera);
 
     setState(() {
       /// This null check avoids crashes if the user taps the "back" button when they are choosing an image
@@ -66,40 +66,48 @@ class _ImagePresenterState extends State<ImagePresenter> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        SizedBox(
-          height: 20.0,
-        ),
-        RaisedButton(
-            onPressed: getImage,
-            textColor: Colors.white,
-            color: Colors.green,
-            padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
-            child: Container(
-                child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Icon(
-                  Icons.cloud_upload,
-                  size: 32.0,
-                ),
-                SizedBox(
-                  width: 20.0,
-                ),
-                Text(
-                  "Upload a picture",
-                  textAlign: TextAlign.center,
-                  textScaleFactor: 1.2,
-                ),
-              ],
-            ))),
-        SizedBox(
-          height: 50.0,
-        ),
-        _image == null ? Image.network(_imageUrl) : Image.file(_image)
-      ],
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            height: 20.0,
+          ),
+          RaisedButton(
+              onPressed: getImage,
+              textColor: Colors.white,
+              color: Colors.green,
+              padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
+              child: Container(
+                  child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    Icons.cloud_upload,
+                    size: 32.0,
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Text(
+                    "Upload a picture",
+                    textAlign: TextAlign.center,
+                    textScaleFactor: 1.2,
+                  ),
+                ],
+              ))),
+          SizedBox(
+            height: 50.0,
+          ),
+          _image == null
+              ? Image.network(_imageUrl)
+              : Image.file(
+                  _image,
+                )
+        ],
+      ),
     );
   }
 }
